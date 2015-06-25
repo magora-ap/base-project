@@ -1,0 +1,10 @@
+<div>
+    <ul>
+        <note-list-item
+                ng-repeat="note in noteListCtrl.getAll()"
+                ng-model="note"
+                set-current-note="noteListCtrl.setCurrentNote($index)"
+                remove-note="noteListCtrl.removeNote($index)">
+        </note-list-item>
+    </ul>
+</div>

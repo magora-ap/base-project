@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-
+    <base href="/">
     <style>
-//= include ../../.tmp/application.css
+//= include ../.tmp/application.css
     </style>
     <script>(function () {
-//= include ../../.tmp/application.js
-//= include ../../.tmp/templates.js
+//= include ../.tmp/application.js
+//= include ../.tmp/templates.js
 })();</script>
 </head>
-<body>
-layout 2s
+<body ui-view="">
 </body>
 </html>

@@ -1,0 +1,11 @@
+<form ng-submit="noteFormCtrl.save()">
+    <div class="form-group">
+        <label for="form-note-name">Название</label>
+        <input ng-model="noteFormCtrl.noteForEdit.name" name="name" type="text" id="form-note-name" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="form-note-text">Заметка</label>
+        <textarea name="text" class="form-control" id="form-note-text" ng-model="noteFormCtrl.noteForEdit.text"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Сохранить</button>
+</form>
