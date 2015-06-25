@@ -1,0 +1,1 @@
+gulp.task('build', modules['gulp-sync'](gulp).sync(config['tasks']['build']['tasks']));

@@ -1,0 +1,150 @@
+{
+  "public": "./public",
+  "tmp": "./.tmp",
+  "isProduction": false,
+  "tasks": {
+
+    "web-server": {
+      "dependence": [
+        "gulp-webserver",
+        "connect-modrewrite"
+      ],
+      "server": {
+        "livereload": true,
+        "port": 8080,
+        "directoryListing": true,
+        "open": true,
+        "path": "public",
+        "fallback": "index.html"
+      },
+      "modRewrite": [
+        "^/api/(.*) http://localhost:83/$1 [P]"
+      ]
+    },
+
+
+    "css": {
+      "dependence": [
+        "gulp-minify-css",
+        "gulp-stylus",
+        "gulp-if",
+        "streamqueue"
+      ],
+      "vendors": [
+        "./components/bootstrap/dist/css/bootstrap.min.css"
+      ],
+      "method": "gulp-stylus",
+      "params": {
+        "compatibility": "ie8"
+      },
+      "outFileName": "application.css",
+      "watch": ["application/**/*.styl"]
+    },
+
+
+    "tpl-html": {
+      "dependence": [
+        "gulp-angular-templatecache",
+        "gulp-uglify",
+        "gulp-if"
+      ],
+      "params": {
+        "module": "Application"
+      },
+      "outFileName": "index.html",
+      "layout": "application/views/layout.html",
+      "watch": ["application/**/*.tpl.html"]
+    },
+
+
+    "tpl-layout": {
+      "dependence": [
+        "gulp-include"
+      ],
+      "watch": ["application/views/layout.html"]
+    },
+
+    "pack-html": {
+      "watch": ["./.tmp/layout.html"],
+      "outFileName": "index.html",
+      "params": {
+        "conditionals": true,
+        "spare": true
+      },
+      "dependence": [
+        "gulp-minify-html",
+        "gulp-concat"
+      ]
+    },
+
+    "javascript": {
+      "watch": [
+        "./application/**/*.js"
+      ],
+      "vendors":[
+        "./components/angular/angular.min.js"
+      ],
+      "outFileName": "application.js",
+      "params": {
+        "conditionals": true,
+        "spare": true
+      },
+      "dependence": [
+        "gulp-uglify",
+        "gulp-if",
+        "gulp-jshint",
+        "streamqueue",
+        "gulp-concat"
+      ]
+    },
+
+    "clean": {
+      "watch": [
+        "./.tmp",
+        "./public"
+      ],
+      "params": {
+        "force": true
+      },
+      "dependence": [
+        "gulp-clean"
+      ]
+    },
+
+    "build": {
+      "tasks": [
+        "clean",
+        "css",
+        "javascript",
+        "tpl-html",
+        "tpl-layout",
+        "pack-html"
+      ],
+      "dependence": [
+        "gulp-sync"
+      ]
+    },
+
+
+    "watch": {
+      "dependence": [
+        "gulp-watch",
+        "gulp-sync"
+      ],
+      "tasks": [
+        "css",
+        "javascript",
+        "tpl-html",
+        "tpl-layout",
+        {
+          "src": [
+            "./.tmp/application.js",
+            "./.tmp/application.css",
+            "./.tmp/templates.js"
+          ],
+          "tasks": ["tpl-layout", "pack-html"]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+/components
+node_modules
+/.tmp
+/public
+.idea
